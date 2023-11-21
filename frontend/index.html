@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Artwork Upload</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <header>
+        <nav id="navbar">
+            <div id="logo">SMARTARTGUIDE</div>
+            <div id="profile-link">Profile</div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section id="upload-section">
+            <h1>Upload</h1>
+            <div id="upload-box">
+                <form id="image-upload-form" enctype="multipart/form-data">
+                    <label for="image-input" id="upload-label">
+                        <div id="upload-instructions">CLICK TO UPLOAD YOUR PHOTO</div>
+                        <!-- 添加一个用来显示图片的容器 -->
+                        <div id="image-display" style="display:none;">
+                            <img id="preview-image" src="#" alt="Image preview" />
+                        </div>
+
+                        <input type="file" id="image-input" name="image" style="display: none;" required>
+                    </label>
+                    <button type="submit" id="upload-button">Upload</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+    <script type="text/javascript" src="lib/axios/dist/axios.standalone.js"></script>
+    <script type="text/javascript" src="lib/CryptoJS/rollups/hmac-sha256.js"></script>
+    <script type="text/javascript" src="lib/CryptoJS/rollups/sha256.js"></script>
+    <script type="text/javascript" src="lib/CryptoJS/components/hmac.js"></script>
+    <script type="text/javascript" src="lib/CryptoJS/components/enc-base64.js"></script>
+    <script type="text/javascript" src="lib/url-template/url-template.js"></script>
+    <script type="text/javascript" src="lib/apiGatewayCore/sigV4Client.js"></script>
+    <script type="text/javascript" src="lib/apiGatewayCore/apiGatewayClient.js"></script>
+    <script type="text/javascript" src="lib/apiGatewayCore/simpleHttpClient.js"></script>
+    <script type="text/javascript" src="lib/apiGatewayCore/utils.js"></script>
+    <script type="text/javascript" src="apigClient.js"></script>
+    <script>
+
+        var sdk = apigClientFactory.newClient({});
+
+    </script>
+</body>
+
+</html>

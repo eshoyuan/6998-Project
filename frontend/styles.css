@@ -1,0 +1,86 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4ede4;
+}
+
+#navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+#image-display {
+    /* 设置图片容器的最大宽度和高度 */
+    max-width: 100%;
+    max-height: 500px; /* 或您想要的任何尺寸 */
+    overflow: hidden; /* 超出容器的部分将被隐藏 */
+    display: flex; /* 使用flex布局以便于居中图片 */
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+  }
+  
+  #preview-image {
+    /* 设置图片的最大宽度和高度 */
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* 保证图片比例正确 */
+  }
+  
+#logo {
+    font-weight: bold;
+}
+
+#profile-link {
+    display: flex;
+    align-items: center;
+}
+
+#profile-link img {
+    margin-left: 8px;
+}
+
+#main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+#upload-section h1 {
+    color: #000;
+    text-align: center;
+}
+
+#upload-box {
+    width: 90%;
+    max-width: 400px;
+    background-color: #feeae6;
+    border: 2px dashed #fcbea4;
+    margin-top: 30px;
+    text-align: center;
+    padding: 50px 20px;
+}
+
+#upload-instructions {
+    color: #cb8374;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+#upload-button {
+    background-color: #fcbea4;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Hover effects */
+#upload-button:hover {
+    background-color: #cb8374;
+}
