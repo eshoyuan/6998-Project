@@ -18,7 +18,6 @@ dynamodb_data = read_csv_and_format_for_dynamodb(csv_file_path)
 import subprocess, json
 from tqdm import tqdm
 table_name = 'ArtInfo'
-
 for item in tqdm(dynamodb_data):
     item_json = json.dumps(item)
     subprocess.run(['aws', 'dynamodb', 'put-item', '--table-name', table_name, '--item', item_json], check=True)

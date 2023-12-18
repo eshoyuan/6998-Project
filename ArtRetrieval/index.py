@@ -7,7 +7,7 @@ client = boto3.client('opensearch')
 service = 'es'
 region = 'us-west-1'
 credentials = boto3.Session().get_credentials()
-awsauth = AWS4Auth("AKIA3FZTEQHNARSVAVO3", "52N9Ob+O/aJmTVT8YIADYsybWNi2veovWz6gug2b",
+awsauth = AWS4Auth("", "",
                    region, service, session_token=credentials.token)
 import torch
 import torchvision.models as models

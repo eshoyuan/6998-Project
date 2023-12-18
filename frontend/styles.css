@@ -13,6 +13,23 @@ body, html {
     background-color: #ffffff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+.button-container {
+    text-align: center;
+}
+.scan-button {
+    background-color: #f8d7da; /* Button background color */
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 20px; /* Adjust for rounded corners */
+    box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2); /* Optional: Add shadow for 3D effect */
+    transition: background-color 0.3s ease; /* Optional: Transition for hover effect */
+}
 #image-display {
     /* 设置图片容器的最大宽度和高度 */
     max-width: 100%;

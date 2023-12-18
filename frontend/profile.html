@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Artwork Details</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body style="text-align: center;">
+
+<header style="margin: auto;">
+    <nav id="navbar">
+        <a href="main.html">
+            <div id="logo">SMARTARTGUIDE</div>
+        </a>
+        <div id="profile-link" onclick="logoutAndRedirect()">LOGOUT</div>
+    </nav>
+</header>
+<script>
+    // if username not in localStorage, redirect to login.html
+    if (!localStorage.getItem('username')) {
+        window.location.href = 'login.html';
+    }
+</script>
+<script>
+    // Add the logout and redirect function
+    function logoutAndRedirect() {
+        // Clear the 'username' from local storage
+        localStorage.removeItem('username');
+        // Redirect to login page
+        window.location.href = 'login.html';
+    }
+</script>
+<style>
+    /* 添加手型样式，并使用 !important 来确保生效 */
+    #profile-link {
+        cursor: pointer !important;
+    }
+</style>
+
+</body>
+</html>

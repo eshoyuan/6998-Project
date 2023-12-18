@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Artwork Details</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body style="text-align: center;">
+
+    <header style="margin: auto;">
+        <nav id="navbar">
+            <a href="main.html">
+                <div id="logo">SMARTARTGUIDE</div>
+            </a>
+            <div id="profile-link" onclick="logoutAndRedirect()">LOGOUT</div>
+        </nav>
+    </header>
+
+    <main id="main-content" style="margin: auto;">
+        <section id="artwork-details-section" style="margin: auto;">
+            <h1>Artwork Details</h1>
+            <div id="artwork-details-box" style="margin: auto;">
+                <div id="artwork-title">
+                    <h2>Title:</h2>
+                    <p id="title" style="word-wrap: break-word;"></p>
+                </div>
+                <div id="artwork-description">
+                    <h2>Description:</h2>
+                    <p id="description" style="word-wrap: break-word;"></p>
+                </div>
+                <div id="artwork-image-container" style="margin: auto;">
+                    <img id="artwork-image" src="#" alt="Artwork Image" style="width: 40%; height: auto;" />
+                </div>
+                <audio controls id="artwork-audio">
+                    <!-- Dynamic MP3 source will be added here -->
+                </audio>
+            </div>
+        </section>
+    </main>
+
+</body>
+
+</html>
+
+
+<script type="text/javascript" src="lib/axios/dist/axios.standalone.js"></script>
+<script type="text/javascript" src="lib/CryptoJS/rollups/hmac-sha256.js"></script>
+<script type="text/javascript" src="lib/CryptoJS/rollups/sha256.js"></script>
+<script type="text/javascript" src="lib/CryptoJS/components/hmac.js"></script>
+<script type="text/javascript" src="lib/CryptoJS/components/enc-base64.js"></script>
+<script type="text/javascript" src="lib/url-template/url-template.js"></script>
+<script type="text/javascript" src="lib/apiGatewayCore/sigV4Client.js"></script>
+<script type="text/javascript" src="lib/apiGatewayCore/apiGatewayClient.js"></script>
+<script type="text/javascript" src="lib/apiGatewayCore/simpleHttpClient.js"></script>
+<script type="text/javascript" src="lib/apiGatewayCore/utils.js"></script>
+<script type="text/javascript" src="apigClient.js"></script>
+<script>
+    // Extract 'id' from URL query parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const artworkId = urlParams.get('id');
+    var sdk = apigClientFactory.newClient({});
+
+    // Fetch and display artwork info if 'id' is present
+    function fetchArtworkInfo(artworkId) {
+        /*fetch(`https://m0aekxs2sf.execute-api.us-east-1.amazonaws.com/dev/artwork-info/${artworkId}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log('Artwork info:', data.body);
+            // Display the artwork details
+            document.getElementById('title').innerText = data.body.title;
+            document.getElementById('description').innerText = data.body.description;
+            document.getElementById('artwork-image').src = data.body.url;
+        })
+        .catch(error => {
+            console.error('Error fetching artwork info:', error);
+            document.getElementById('artwork-details-box').innerHTML = '<p>Error fetching artwork details.</p>';
+        });*/
+        var params = {"artworkId": artworkId};
+        var body = {"artworkId": artworkId};
+        var additionalParams = {};
+        sdk.artworkInfoArtworkIdGet(params, body, additionalParams).then(function (result) {
+            console.log('Artwork info:', result.data);
+            body = result.data;
+            // Display the artwork details
+            document.getElementById('title').innerText = body.title;
+            document.getElementById('description').innerText = body.description;
+            document.getElementById('artwork-image').src = body.url;
+            var artworkAudio = document.getElementById('artwork-audio');
+            artworkAudio.setAttribute('src', `https://artaudio.s3.amazonaws.com/${artworkId}.mp3`);
+        }).catch(function (result) {
+            console.error('Error fetching artwork info:', result);
+            document.getElementById('artwork-details-box').innerHTML = '<p>Not Found</p>';
+        });
+
+    }
+
+    if (artworkId) {
+        fetchArtworkInfo(artworkId);
+    } else {
+        // Handle cases where no 'id' is found
+        document.getElementById('artwork-details-box').innerHTML = '<p>Error: No artwork ID provided.</p>';
+    }
+</script>
+<script>
+    // Add the logout and redirect function
+    function logoutAndRedirect() {
+        // Clear the 'username' from local storage
+        localStorage.removeItem('username');
+        // Redirect to login page
+        window.location.href = 'login.html';
+    }
+</script>
+</body>
+
+</html>

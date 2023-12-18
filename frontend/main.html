@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Artwork Details</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body style="text-align: center;">
+
+    <header style="margin: auto;">
+        <nav id="navbar">
+            <a href="main.html">
+                <div id="logo">SMARTARTGUIDE</div>
+            </a>
+            <div id="profile-link" onclick="logoutAndRedirect()">LOGOUT</div>
+        </nav>
+    </header>
+<div class="button-container">
+    <a href="index.html" class="scan-button">Scan</a>
+</div>
+<div class="artwork-image-container" style="margin: auto;">
+    <a href="art-details.html?id=" class="artwork-link">
+        <img class="artwork-image" style="width: 40%; height: auto;" />
+    </a>
+</div>
+<div class="artwork-image-container" style="margin: auto;">
+    <a href="art-details.html?id=" class="artwork-link">
+        <img class="artwork-image" style="width: 40%; height: auto;" />
+    </a>
+</div>
+<div class="artwork-image-container" style="margin: auto;">
+    <a href="art-details.html?id=" class="artwork-link">
+        <img class="artwork-image" style="width: 40%; height: auto;" />
+    </a>
+</div>
+<script type="text/javascript" src="lib/axios/dist/axios.standalone.js"></script>
+<script type="text/javascript" src="lib/CryptoJS/rollups/hmac-sha256.js"></script>
+<script type="text/javascript" src="lib/CryptoJS/rollups/sha256.js"></script>
+<script type="text/javascript" src="lib/CryptoJS/components/hmac.js"></script>
+<script type="text/javascript" src="lib/CryptoJS/components/enc-base64.js"></script>
+<script type="text/javascript" src="lib/url-template/url-template.js"></script>
+<script type="text/javascript" src="lib/apiGatewayCore/sigV4Client.js"></script>
+<script type="text/javascript" src="lib/apiGatewayCore/apiGatewayClient.js"></script>
+<script type="text/javascript" src="lib/apiGatewayCore/simpleHttpClient.js"></script>
+<script type="text/javascript" src="lib/apiGatewayCore/utils.js"></script>
+<script type="text/javascript" src="apigClient.js"></script>
+<script>
+    // Parse the URL
+    var urlParams = new URLSearchParams(window.location.search);
+
+    // Get the 'username' parameter
+    var username = urlParams.get('username');
+
+    // Save the 'username' parameter to the local storage
+    if (username) {
+        localStorage.setItem('username', username);
+    }
+    else
+    //redirect to login.html
+    {
+        if (!localStorage.getItem('username'))
+        {window.location.href = 'login.html';}
+    }
+</script>
+<script>
+    var sdk = apigClientFactory.newClient({});
+
+    function fetchArtworkInfo(artworkIndex) {
+        var artworkId = Math.floor(Math.random() * 153);
+        var params = {"artworkId": artworkId};
+        var body = {"artworkId": artworkId};
+        var additionalParams = {};
+
+        sdk.artworkInfoArtworkIdGet(params, body, additionalParams).then(function (result) {
+            console.log('Artwork info:', result.data);
+            var artworkData = result.data;
+            document.getElementsByClassName('artwork-image')[artworkIndex].src = artworkData.url;
+            document.getElementsByClassName('artwork-link')[artworkIndex].href = "art-details.html?id=" + artworkId;
+        }).catch(function (result) {
+            console.error('Error fetching artwork info:', result);
+            document.getElementsByClassName('artwork-image')[artworkIndex].alt = 'Error loading artwork';
+        });
+    }
+
+    window.onload = function() {
+        for (var i = 0; i < 3; i++) {
+            fetchArtworkInfo(i);
+        }
+    };
+</script>
+<script>
+    // Add the logout and redirect function
+    function logoutAndRedirect() {
+        // Clear the 'username' from local storage
+        localStorage.removeItem('username');
+        // Redirect to login page
+        window.location.href = 'login.html';
+    }
+</script>

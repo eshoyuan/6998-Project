@@ -21,21 +21,23 @@ document.getElementById('upload-button').addEventListener('click', function(even
 
         reader.onloadend = function() {
             // 当读取操作完成后执行此函数
-            var base64data = reader.result; // 图片的Base64编码
+            var base64data = reader.result.replace(/^data:.+;base64,/, ''); // 去掉 Base64 编码前的文件信息
 
             // 调用AWS API Gateway客户端上传图片
             var params = {};
             var body = {body: base64data};
             console.log(base64data);
             var additionalParams = {
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Headers': '*',
-                    'Access-Control-Allow-Methods': '*',                }
+                // headers: {
+                //     'Access-Control-Allow-Origin': '*',
+                //     'Access-Control-Allow-Headers': '*',
+                //     'Access-Control-Allow-Methods': '*',                }
             };
 
             sdk.uploadImagePost(params, body, additionalParams).then(function(response) {
                 console.log('Image uploaded successfully:', response);
+                var artworkId = response.data.body.id;
+                window.location.href = `art-details.html?id=${artworkId}`;
                 // 处理成功响应
             }).catch(function(error) {
                 console.error('Image upload failed:', error);
@@ -47,4 +49,5 @@ document.getElementById('upload-button').addEventListener('click', function(even
     } else {
         alert('Please select a file to upload.');
     }
+    
 });

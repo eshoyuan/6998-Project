@@ -9,10 +9,12 @@
 
 <body>
 
-    <header>
+    <header style="margin: auto;">
         <nav id="navbar">
-            <div id="logo">SMARTARTGUIDE</div>
-            <div id="profile-link">Profile</div>
+            <a href="main.html">
+                <div id="logo">SMARTARTGUIDE</div>
+            </a>
+            <div id="profile-link" onclick="logoutAndRedirect()">LOGOUT</div>
         </nav>
     </header>
 
@@ -52,6 +54,21 @@
 
         var sdk = apigClientFactory.newClient({});
 
+    </script>
+    <script>
+        // if username not in localStorage, redirect to login.html
+        if (!localStorage.getItem('username')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+    <script>
+        // Add the logout and redirect function
+        function logoutAndRedirect() {
+            // Clear the 'username' from local storage
+            localStorage.removeItem('username');
+            // Redirect to login page
+            window.location.href = 'login.html';
+        }
     </script>
 </body>
 

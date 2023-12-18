@@ -58,7 +58,7 @@ def base2id(base64_string):
   #  print("___")
     service = 'es'
     region = 'us-west-1'
-    awsauth = AWS4Auth("AKIA3FZTEQHNARSVAVO3", "52N9Ob+O/aJmTVT8YIADYsybWNi2veovWz6gug2b",
+    awsauth = AWS4Auth("", "",
                     region, service)
  #   print("__2")
     # Decode the base64 string to bytes
